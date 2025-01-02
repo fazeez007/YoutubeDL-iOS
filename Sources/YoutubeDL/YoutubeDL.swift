@@ -334,17 +334,16 @@ open class YoutubeDL: NSObject {
         let result = Array<String?>(repeating: nil, count: 2)
 
         if let args: [String] = Array(args[1][0]) {
-            
             let exitCode = self.handleFFmpeg(args: args)
-            
             popen.returncode = PythonObject(exitCode)
-            
+
             // Function to read output from pipes
             func read(pipe: Pipe) -> String? {
                 let data = pipe.fileHandleForReading.availableData
                 let output = String(data: data, encoding: .utf8)
                 return output
             }
+
             return Python.tuple(result)
         }
         return Python.tuple(result)
